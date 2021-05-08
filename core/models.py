@@ -14,7 +14,7 @@ class Currency(models.Model):
 class ExchangeRate(models.Model):
     from_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='from_currency')
     to_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='to_currency')
-    value = models.DecimalField(decimal_places=10, max_digits=20)
+    value = models.DecimalField(decimal_places=5, max_digits=10)
     refreshed_at = models.DateTimeField()
 
     def __str__(self) -> str:

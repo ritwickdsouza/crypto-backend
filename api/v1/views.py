@@ -19,13 +19,14 @@ class CurrencySerializer(serializers.ModelSerializer):
 class QuotesSerializer(serializers.ModelSerializer):
     from_currency = CurrencySerializer(read_only=True)
     to_currency = CurrencySerializer(read_only=True)
+    value = serializers.DecimalField(decimal_places=5, max_digits=10, read_only=True)
 
     class Meta:
         model = ExchangeRate
         fields = ['from_currency', 'to_currency', 'value']
 
 
-class QuotesAPIViewSet(viewsets.ModelViewSet):
+class QuotesAPIViewSet(viewsets.GenericViewSet):
     queryset = ExchangeRate.objects.all()
     serializer_class = QuotesSerializer
 

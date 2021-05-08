@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'api',
     'core',
     'datamigrations',
+    # third party
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
