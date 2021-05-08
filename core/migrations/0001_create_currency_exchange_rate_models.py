@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name='ExchangeRate',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.DecimalField(decimal_places=5, max_digits=10)),
+                ('value', models.DecimalField(decimal_places=10, max_digits=20)),
                 ('refreshed_at', models.DateTimeField()),
                 ('from_currency', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_currency', to='core.currency')),
                 ('to_currency', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_currency', to='core.currency')),

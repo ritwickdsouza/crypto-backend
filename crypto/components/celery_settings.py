@@ -1,12 +1,15 @@
+import os
+
 from celery.schedules import crontab
 
-CELERY_BROKER_URL = "redis://redis:6379"
-CELERY_RESULT_BACKEND = "redis://redis:6379"
+
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://redis:6379')
 
 
 CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "core.tasks.sample_task",
-        "schedule": crontab(minute="*/1"),
+    'update_exchange_rates': {
+        'task': 'core.tasks.update_exchange_rates',
+        'schedule': crontab(minute='*/60'),
     },
 }
