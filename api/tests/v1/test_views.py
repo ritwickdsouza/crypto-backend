@@ -14,7 +14,7 @@ from core.tests.factories import ExchangeRateFactory
 class QuotesAPIViewTestCase(APITestCase):
     def setUp(self) -> None:
         self.btc = Currency.objects.get(code='BTC')
-        self.usdt = Currency.objects.get(code='USDT')
+        self.usd = Currency.objects.get(code='USD')
 
     def test_get_quote_exchange_no_query_params(self):
         # given / when
@@ -57,7 +57,7 @@ class QuotesAPIViewTestCase(APITestCase):
         # given / when
         ExchangeRateFactory.create(
             from_currency=self.btc,
-            to_currency=self.usdt,
+            to_currency=self.usd,
             value=1000.0,
             refreshed_at=timezone.now()
         )
@@ -65,7 +65,7 @@ class QuotesAPIViewTestCase(APITestCase):
         base_url = reverse('quotes')
         query_params = {
             'from_currency': 'BTC',
-            'to_currency': 'USDT'
+            'to_currency': 'USD'
         }
         url = f'{base_url}?{urlencode({**query_params})}'
 
@@ -82,8 +82,8 @@ class QuotesAPIViewTestCase(APITestCase):
                     'name': 'Bitcoin'
                 },
                 'to_currency': {
-                    'code': 'USDT',
-                    'name': 'Tether'
+                    'code': 'USD',
+                    'name': 'United States Dollar'
                 },
                 'value': '1000.0000000000'
             }
@@ -94,7 +94,7 @@ class QuotesAPIViewTestCase(APITestCase):
         # given / when
         ExchangeRateFactory.create(
             from_currency=self.btc,
-            to_currency=self.usdt,
+            to_currency=self.usd,
             value=1000.0,
             refreshed_at=timezone.now()
         )
@@ -104,8 +104,8 @@ class QuotesAPIViewTestCase(APITestCase):
                 name='Bitcoin'
             ),
             to_currency=CurrencyDataModel(
-                code='USDT',
-                name='Tether'
+                code='USD',
+                name='United States Dollar'
             ),
             value='2000.0',
             refreshed_at=timezone.now()
@@ -114,7 +114,7 @@ class QuotesAPIViewTestCase(APITestCase):
         base_url = reverse('quotes')
         query_params = {
             'from_currency': 'BTC',
-            'to_currency': 'USDT'
+            'to_currency': 'USD'
         }
         url = f'{base_url}?{urlencode({**query_params})}'
 
@@ -131,8 +131,8 @@ class QuotesAPIViewTestCase(APITestCase):
                     'name': 'Bitcoin'
                 },
                 'to_currency': {
-                    'code': 'USDT',
-                    'name': 'Tether'
+                    'code': 'USD',
+                    'name': 'United States Dollar'
                 },
                 'value': '2000.0000000000'
             }

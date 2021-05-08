@@ -6,7 +6,7 @@ from django.db import migrations
 
 
 # Currency list from Alpha Vantage
-CURRENCY_LIST_PATH = 'data/digital_currency_list.csv'
+CURRENCY_LIST_PATH = 'data/currency_list.csv'
 
 
 def get_currency_list_csv_path():
