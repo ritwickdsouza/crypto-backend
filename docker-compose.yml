@@ -5,7 +5,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    command: bash -c "./manage.py migrate &&
+    command: bash -c "python wait_for_postgres.py &&
+                      ./manage.py migrate &&
                       ./manage.py runserver 0.0.0.0:8000"
     container_name: web
     depends_on:
@@ -16,7 +17,7 @@ services:
     volumes:
       - ./:/home/user/app
   database:
-    container_name: database
+    container_name: postgres
     env_file: env/database.env
     image: postgres:13.2
     volumes:
