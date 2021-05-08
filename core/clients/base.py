@@ -48,7 +48,7 @@ class BaseAPIClient:
             _headers.update(headers)
         return _headers
 
-    def request(self, *args, **kwargs) -> Dict:
+    def request(self, *args, **kwargs):
         headers = self._construct_headers(kwargs.get('headers', {}))
         kwargs['headers'] = headers
         kwargs['timeout'] = kwargs.get('timeout', None) or self.TIMEOUT

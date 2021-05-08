@@ -1,24 +1,52 @@
 version: "3.3"
 
 services:
-  web:
+  # application
+  django-web:
     build:
       dockerfile: Dockerfile
       context: .
     command: bash -c "python wait_for_postgres.py &&
                       ./manage.py migrate &&
                       ./manage.py runserver 0.0.0.0:8000"
-    container_name: web
+    container_name: django-web
     depends_on:
-      - database
-    env_file: env/web.env
+      - postgres
+      - redis
+    env_file: env/backend.env
     ports:
     - 8000:8000
     volumes:
       - ./:/home/user/app
-  database:
+  celery:
+    container_name: celery
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: celery -A crypto worker -l info
+    volumes:
+      - ./:/home/user/app
+    env_file: env/backend.env
+    depends_on:
+      - redis
+  celery-beat:
+    container_name: celery-beat
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: celery -A crypto beat -l info
+    volumes:
+      - ./:/home/user/app
+    env_file: env/backend.env
+    depends_on:
+      - redis
+  # data
+  postgres:
     container_name: postgres
     env_file: env/database.env
     image: postgres:13.2
     volumes:
       - .db:/var/lib/postgresql/data
+  redis:
+    container_name: redis
+    image: redis:alpine

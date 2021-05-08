@@ -12,7 +12,7 @@ class AlphaVantageClient(BaseAPIClient):
     BASE_URL = settings.ALPHA_VANTAGE_BASE_URL
     TIMEOUT = settings.ALPHA_VANTAGE_TIMEOUT
 
-    def get_exchange_rate(self, from_currency: str, to_currency: str) -> ExchangeRate:
+    def get_exchange_rate(self, from_currency: str, to_currency: str):
         exchange_rate = None
         try:
             response = self.get(

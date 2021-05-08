@@ -17,7 +17,7 @@ class ExchangeRate(models.Model):
     value = models.DecimalField(decimal_places=5, max_digits=10)
     refreshed_at = models.DateTimeField()
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f'{self.from_currency} | {self.to_currency} | {self.value} | {self.refreshed_at}'
 
     @classmethod

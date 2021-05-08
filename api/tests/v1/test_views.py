@@ -12,7 +12,7 @@ from core.tests.factories import ExchangeRateFactory
 
 
 class QuotesAPIViewTestCase(APITestCase):
-    def setUp(self) -> None:
+    def setUp(self):
         self.btc = Currency.objects.get(code='BTC')
         self.usd = Currency.objects.get(code='USD')
 
