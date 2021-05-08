@@ -1,7 +1,6 @@
 import factory
 
-from core.models import Currency
-from core.models import ExchangeRate
+from core.models import Currency, ExchangeRate
 
 
 class CurrencyFactory(factory.django.DjangoModelFactory):

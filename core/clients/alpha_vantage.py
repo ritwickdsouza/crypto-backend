@@ -2,8 +2,8 @@ from logging import getLogger
 
 from django.conf import settings
 
-from core.clients.base import BaseAPIClient, APIClientError
-from core.clients.data_models import ExchangeRate, Currency
+from core.clients.base import APIClientError, BaseAPIClient
+from core.clients.data_models import Currency, ExchangeRate
 
 logger = getLogger(__name__)
 

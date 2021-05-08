@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'datamigrations',
     # third party
     'rest_framework',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
