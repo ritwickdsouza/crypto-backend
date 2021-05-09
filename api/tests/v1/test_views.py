@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import urlencode
 from rest_framework.test import APITestCase
+from rest_framework_api_key.models import APIKey
 
 from core.clients.data_models import Currency as CurrencyDataModel
 from core.clients.data_models import ExchangeRate as ExchangeRateDataModel
@@ -15,6 +16,9 @@ class QuotesAPIViewTestCase(APITestCase):
     def setUp(self):
         self.btc = Currency.objects.get(code='BTC')
         self.usd = Currency.objects.get(code='USD')
+
+        api_key, key = APIKey.objects.create_key(name='test-key')
+        self.client.credentials(HTTP_AUTHORIZATION='Api-Key {key}'.format(key=key))
 
     def test_get_quote_exchange_no_query_params(self):
         # given / when
@@ -85,7 +89,7 @@ class QuotesAPIViewTestCase(APITestCase):
                     'code': 'USD',
                     'name': 'United States Dollar'
                 },
-                'value': '1000.0000000000'
+                'value': '1000.00000'
             }
         )
 
@@ -134,6 +138,6 @@ class QuotesAPIViewTestCase(APITestCase):
                     'code': 'USD',
                     'name': 'United States Dollar'
                 },
-                'value': '2000.0000000000'
+                'value': '2000.00000'
             }
         )
