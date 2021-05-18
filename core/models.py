@@ -22,6 +22,12 @@ class ExchangeRate(models.Model):
 
     @classmethod
     def fetch_and_update(cls, from_currency_code, to_currency_code):
+        try:
+            from_currency = Currency.objects.get(code=from_currency_code)
+            to_currency = Currency.objects.get(code=to_currency_code)
+        except Currency.DoesNotExist:
+            return None
+        
         alpha_vantage_client = AlphaVantageClient()
         exchange_rate = alpha_vantage_client.get_exchange_rate(
             from_currency=from_currency_code,
@@ -32,8 +38,8 @@ class ExchangeRate(models.Model):
             return None
 
         return cls.objects.create(
-            from_currency=Currency.objects.get(code=from_currency_code),
-            to_currency=Currency.objects.get(code=to_currency_code),
+            from_currency=from_currency,
+            to_currency=to_currency,
             value=exchange_rate.value,
             refreshed_at=exchange_rate.refreshed_at
         )
